@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>emmanouela88 · Projects</title>
+<meta name="description" content="Projects by emmanouela88, featuring the location-based AR game Valletta: Streets of History.">
+<style>
+:root{
+  --bg:#0b1418; --bg2:#101e24; --ink:#eef3f1; --muted:#9fb3b4; --line:#1f343b;
+  --stone:#e8d9b5; --sea:#3fb6c6; --ring:#f2b14a; --ok:#7ddc9a;
+  --radius:14px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--sea)}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--ring);outline-offset:3px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+header.nav{position:sticky;top:0;z-index:10;background:rgba(11,20,24,.88);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.brand{font-weight:700;letter-spacing:.2px;color:var(--ink);text-decoration:none}
+.nav nav a{color:var(--muted);text-decoration:none;margin-left:20px;font-size:.95rem}
+.nav nav a:hover{color:var(--ink)}
+.eyebrow{color:var(--ring);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+h1{font-size:clamp(2rem,5.5vw,3.5rem);line-height:1.1;margin:.4em 0 .4em}
+h2{font-size:clamp(1.5rem,3.5vw,2.1rem);margin:0 0 .5em}
+h3{margin:0 0 .3em;font-size:1.1rem}
+p{margin:0 0 1em}
+.lead{font-size:1.15rem;color:var(--muted);max-width:60ch}
+.hero{padding:64px 0 40px;background:radial-gradient(1200px 500px at 80% 0%,#12303a 0%,transparent 60%)}
+.hero .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.btn{display:inline-block;padding:12px 20px;border-radius:999px;font-weight:600;text-decoration:none;border:1px solid var(--line)}
+.btn.primary{background:var(--ring);color:#1a1205;border-color:var(--ring)}
+.btn.ghost{color:var(--ink)}
+.btn:hover{filter:brightness(1.1)}
+.viewfinder{position:relative;aspect-ratio:1/1;max-width:440px;margin:0 auto;width:100%}
+.viewfinder svg{width:100%;height:100%;display:block}
+.pulse{transform-origin:50% 50%;animation:pulse 3.2s ease-out infinite}
+.pulse.d2{animation-delay:1.06s}.pulse.d3{animation-delay:2.12s}
+@keyframes pulse{0%{transform:scale(.15);opacity:.9}100%{transform:scale(1);opacity:0}}
+@media (prefers-reduced-motion:reduce){.pulse{animation:none;opacity:.35;transform:scale(.7)}.pulse.d2{transform:scale(.5)}.pulse.d3{transform:scale(.3)}html{scroll-behavior:auto}}
+section{padding:64px 0;border-top:1px solid var(--line)}
+section.alt{background:var(--bg2)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:28px;counter-reset:s}
+.step{background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:20px;counter-increment:s}
+section.alt .step{background:var(--bg)}
+.step:before{content:"0" counter(s);display:block;color:var(--ring);font-weight:800;font-size:.85rem;letter-spacing:.1em;margin-bottom:8px}
+.step p{color:var(--muted);font-size:.95rem;margin:0}
+.demo{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;margin-top:40px}
+.demo .card{background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+.status{margin-top:12px;padding:12px 14px;border-radius:10px;border:1px solid var(--line);font-weight:600}
+.status.on{border-color:var(--ok);color:var(--ok)}
+input[type=range]{width:100%;accent-color:var(--ring)}
+.small{font-size:.9rem;color:var(--muted)}
+table{width:100%;border-collapse:collapse;margin-top:20px;font-size:.96rem}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600;width:36%}
+.tag{display:inline-block;font-size:.75rem;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted);margin-left:6px;white-space:nowrap}
+.tag.third{border-color:#6b5a2a;color:var(--stone)}
+.videos{display:flex;gap:24px;flex-wrap:wrap;justify-content:center;margin-top:28px}
+.vid{margin:0;width:min(280px,100%)}
+.vid video{width:100%;height:auto;aspect-ratio:320/672;display:block;border-radius:var(--radius);border:1px solid var(--line);background:#000}
+.vid figcaption{color:var(--muted);font-size:.92rem;margin-top:10px}
+.stories{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
+.story{border:1px solid var(--line);border-radius:var(--radius);padding:20px;background:var(--bg2)}
+.story ol{margin:10px 0 0;padding-left:20px;color:var(--muted);font-size:.95rem}
+.projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:24px}
+.proj{border:1px solid var(--line);border-radius:var(--radius);padding:24px;background:var(--bg2);display:flex;flex-direction:column}
+.proj.feature{border-color:#5a4a1e;background:linear-gradient(160deg,#17262c,#101e24)}
+.proj .meta{color:var(--muted);font-size:.88rem;margin-top:auto;padding-top:12px}
+.proj a.more{margin-top:12px;font-weight:600}
+footer{padding:36px 0 56px;color:var(--muted);font-size:.9rem;border-top:1px solid var(--line)}
+footer p{max-width:75ch}
+@media (max-width:860px){
+  .hero .grid,.demo{grid-template-columns:1fr}
+  .steps,.stories{grid-template-columns:1fr 1fr}
+  .nav nav a{margin-left:12px}
+}
+@media (max-width:540px){.steps,.stories{grid-template-columns:1fr}.nav nav a.opt{display:none}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top">emmanouela88</a>
+    <nav aria-label="Main">
+      <a href="#ar">The AR</a>
+      <a href="#action">In action</a>
+      <a class="opt" href="#stories">Stories</a>
+      <a class="opt" href="#stack">Tech</a>
+      <a href="#projects">Projects</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- HERO: AR is point zero -->
+<div class="hero">
+  <div class="wrap grid">
+    <div>
+      <div class="eyebrow">Location-based augmented reality</div>
+      <h1>History you walk into, not read about.</h1>
+      <p class="lead"><strong>Valletta: Streets of History</strong> is a mobile AR game that sends the player through real streets of Valletta as a detective-historian. Arrive at a location, and the story appears in front of your camera.</p>
+      <div class="btns">
+        <a class="btn primary" href="#ar">See how the AR works</a>
+        <a class="btn ghost" href="https://github.com/emmanouela88/PlayingMalteseHistory" rel="noopener">View the repository</a>
+      </div>
+    </div>
+    <div class="viewfinder" role="img" aria-label="Illustration: expanding rings around a map pin, representing the radius that activates an AR clue">
+      <svg viewBox="0 0 400 400" aria-hidden="true">
+        <defs>
+          <radialGradient id="g" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#16333c"/><stop offset="1" stop-color="#0b1418"/></radialGradient>
+        </defs>
+        <rect x="0" y="0" width="400" height="400" rx="22" fill="url(#g)" stroke="#1f343b"/>
+        <g stroke="#2a4650" stroke-width="1" opacity=".7">
+          <path d="M0 140 H400 M0 260 H400 M140 0 V400 M260 0 V400"/>
+          <path d="M0 200 L400 120 M0 330 L400 250" stroke-dasharray="4 6"/>
+        </g>
+        <g fill="none" stroke="#f2b14a" stroke-width="2.5">
+          <circle class="pulse" cx="200" cy="200" r="170"/>
+          <circle class="pulse d2" cx="200" cy="200" r="170"/>
+          <circle class="pulse d3" cx="200" cy="200" r="170"/>
+        </g>
+        <g fill="none" stroke="#eef3f1" stroke-width="3" stroke-linecap="round">
+          <path d="M28 70 V28 H70"/><path d="M330 28 H372 V70"/><path d="M28 330 V372 H70"/><path d="M372 330 V372 H330"/>
+        </g>
+        <circle cx="200" cy="200" r="9" fill="#f2b14a"/>
+        <circle cx="200" cy="200" r="3.5" fill="#0b1418"/>
+        <text x="200" y="372" text-anchor="middle" fill="#9fb3b4" font-size="13" font-family="system-ui,sans-serif" letter-spacing="2">HOTSPOT RADIUS</text>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- THE AR: point zero -->
+<section id="ar" class="alt">
+  <div class="wrap">
+    <div class="eyebrow">Point zero</div>
+    <h2>How the AR works</h2>
+    <p class="lead">The game fuses two signals: the phone’s GPS, to know <em>where</em> you are in the city, and camera-based AR tracking, to keep content steady in front of you once you get there.</p>
+
+    <div class="steps">
+      <div class="step"><h3>Walk</h3><p>A 2D map with markers guides the player toward the next point of interest in the current story.</p></div>
+      <div class="step"><h3>Arrive</h3><p>Each AR scene holds a geo-located hotspot. When the player enters its radius, the hotspot activates.</p></div>
+      <div class="step"><h3>Anchor</h3><p>AR tracking on ARCore (Android) or ARKit (iOS), through Unity’s AR Foundation, places the content and keeps it stable.</p></div>
+      <div class="step"><h3>Discover</h3><p>The clue appears in AR. Hints and solutions are available, and the player’s unlocked points are saved on the device.</p></div>
+    </div>
+
+    <div class="demo">
+      <div>
+        <h3>Try the hotspot logic</h3>
+        <p>In the project’s Poverty-story AR scene, the hotspot activates when the player is within <strong>4&nbsp;m</strong> of its coordinates. The content is then placed <strong>3&nbsp;m</strong> in front of the camera, turned to face it, and removed again when the player leaves the 4&nbsp;m radius. Drag the slider to see the idea.</p>
+        <p class="small">Illustration of the configured behaviour, not live data.</p>
+      </div>
+      <div class="card">
+        <svg viewBox="0 0 320 200" width="100%" role="img" aria-label="Diagram of a player approaching a hotspot with a 4 metre activation radius">
+          <rect width="320" height="200" rx="10" fill="#0b1418"/>
+          <circle id="zone" cx="240" cy="100" r="64" fill="rgba(242,177,74,.12)" stroke="#f2b14a" stroke-width="2" stroke-dasharray="5 5"/>
+          <circle cx="240" cy="100" r="7" fill="#f2b14a"/>
+          <text x="240" y="196" text-anchor="middle" fill="#9fb3b4" font-size="11" font-family="system-ui,sans-serif">hotspot · 4 m radius</text>
+          <circle id="player" cx="40" cy="100" r="8" fill="#3fb6c6"/>
+          <text id="plabel" x="40" y="80" text-anchor="middle" fill="#3fb6c6" font-size="11" font-family="system-ui,sans-serif">you</text>
+        </svg>
+        <label for="dist" class="small">Distance from hotspot: <strong id="distv">12</strong> m</label>
+        <input id="dist" type="range" min="0" max="12" step="0.5" value="12">
+        <div id="status" class="status" role="status" aria-live="polite">Keep walking.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="action">
+  <div class="wrap">
+    <div class="eyebrow">Screen recordings</div>
+    <h2>The AR in action</h2>
+    <p class="lead">Recorded on a phone while walking in Valletta: the map guides the player to a location, and the AR content appears in the real street.</p>
+    <div class="videos">
+      <figure class="vid">
+        <video controls preload="metadata" playsinline poster="media/ar-demo-1-poster.jpg" aria-label="Screen recording: the map view, then an AR structure appearing in a Valletta square">
+          <source src="media/ar-demo-1.mp4" type="video/mp4">
+          Your browser can’t play this video. <a href="media/ar-demo-1.mp4">Download it</a>.
+        </video>
+        <figcaption>From map to AR: an AR structure appears in the square as the player arrives.</figcaption>
+      </figure>
+      <figure class="vid">
+        <video controls preload="metadata" playsinline poster="media/ar-demo-2-poster.jpg" aria-label="Screen recording: an AR sailing ship appearing on the waterfront">
+          <source src="media/ar-demo-2.mp4" type="video/mp4">
+          Your browser can’t play this video. <a href="media/ar-demo-2.mp4">Download it</a>.
+        </video>
+        <figcaption>On the waterfront: an AR sailing ship appears over the harbour.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="stories">
+  <div class="wrap">
+    <div class="eyebrow">Gameplay</div>
+    <h2>Three stories, six places each</h2>
+    <p class="lead">Every story starts at the National Library (Bibliotheca) and follows a different thread of daily life in Valletta, with an AR scene and mini-games along the way.</p>
+    <div class="stories">
+      <div class="story"><h3>Poverty</h3>
+        <ol><li>Bibliotheca</li><li>Boat docking</li><li>Nix Mangiare steps</li><li>Grandmaster’s Palace entrance</li><li>City Gate</li><li>Court House</li></ol></div>
+      <div class="story"><h3>Quarantine</h3>
+        <ol><li>Bibliotheca</li><li>Merchant’s Street</li><li>Hastings Garden</li><li>Wells Street</li><li>St Paul’s Street</li><li>Marsamxett</li></ol></div>
+      <div class="story"><h3>Jewish story</h3>
+        <ol><li>Bibliotheca</li><li>St George’s Square</li><li>University of Malta Valletta Campus</li><li>Archbishop’s Palace</li><li>Old Mint Street residence</li><li>Jews’ Sallyport</li></ol></div>
+    </div>
+    <p class="small" style="margin-top:20px">Mini-games in the project include coin collecting, a plague-themed game and “Whack the Merchant”.</p>
+  </div>
+</section>
+
+<section id="stack" class="alt">
+  <div class="wrap">
+    <div class="eyebrow">Under the hood</div>
+    <h2>The AR technology stack</h2>
+    <table>
+      <tr><th>Engine</th><td>Unity 2020.3.21f1, C#</td></tr>
+      <tr><th>AR framework</th><td>AR Foundation 4.1.13 with ARCore XR Plugin 4.1.13 and ARKit XR Plugin 4.1.13, managed through XR Plugin Management 4.2.1</td></tr>
+      <tr><th>Geo-located AR</th><td>“Unity AR+GPS Location” <span class="tag third">third-party asset</span> adds GPS-based hotspots and orientation on top of AR Foundation</td></tr>
+      <tr><th>Map &amp; location</th><td>Online Maps by Infinity Code <span class="tag third">third-party asset</span> for the 2D map, markers and location service</td></tr>
+      <tr><th>AR scene setup</th><td>Each story’s AR scene contains an AR Session, AR Session Origin and AR Camera, an AR location manager and orientation component, and a geo-located hotspot</td></tr>
+      <tr><th>Android build</th><td>Min SDK 24, target SDK 33, version 1.0.9</td></tr>
+      <tr><th>Progress</th><td>Unlocked points per story are stored as JSON on the device</td></tr>
+    </table>
+    <p class="small" style="margin-top:16px">Third-party components belong to their respective authors and are used under their own licences. They are credited here and are not presented as original work.</p>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="eyebrow">Projects</div>
+    <h2>On GitHub</h2>
+    <div class="projects">
+      <article class="proj feature">
+        <div class="eyebrow">Featured</div>
+        <h3>Valletta: Streets of History</h3>
+        <p>A mobile AR game about the cultural history of Malta, funded by the Malta Arts Council. It bridges historical research and detective games: the player acts as a detective-historian who uncovers details of Maltese history and culture in real locations through geolocation and AR.</p>
+        <p class="small">Developed by Bewitched Mitches, with academics and alumni of the Institute of Digital Games and the Department of English at the University of Malta. Released under GPL-3.0 or later.</p>
+        <a class="more" href="https://github.com/emmanouela88/PlayingMalteseHistory" rel="noopener">github.com/emmanouela88/PlayingMalteseHistory →</a>
+        <div class="meta">Unity · C# · AR Foundation · ARCore · ARKit</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>All projects listed on this page are repositories under <a href="https://github.com/emmanouela88" rel="noopener">github.com/emmanouela88</a>.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var r=document.getElementById('dist'),v=document.getElementById('distv'),
+      p=document.getElementById('player'),l=document.getElementById('plabel'),
+      s=document.getElementById('status'),z=document.getElementById('zone');
+  function upd(){
+    var d=parseFloat(r.value); v.textContent=d;
+    // 16 px per metre; hotspot at x=240, so 12 m -> x=48
+    var x=240-d*16; p.setAttribute('cx',x); l.setAttribute('x',x);
+    var on=d<=4;
+    z.setAttribute('fill',on?'rgba(125,220,154,.22)':'rgba(242,177,74,.12)');
+    z.setAttribute('stroke',on?'#7ddc9a':'#f2b14a');
+    s.className='status'+(on?' on':'');
+    s.textContent=on?'Hotspot active: the clue appears 3 m in front of the camera.':'Keep walking.';
+  }
+  r.addEventListener('input',upd); upd();
+})();
+</script>
+</body>
+</html>
