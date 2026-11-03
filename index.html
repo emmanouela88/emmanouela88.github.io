@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Emmanouela Marla · Software Engineer</title>
 <meta name="description" content="Emmanouela Marla, software engineer. Projects include the location-based AR game Valletta: Streets of History.">
+<script>document.documentElement.className+=' js';</script>
 <style>
 :root{
   --bg:#0b1418; --bg2:#101e24; --ink:#eef3f1; --muted:#9fb3b4; --line:#1f343b;
@@ -21,7 +22,20 @@ header.nav{position:sticky;top:0;z-index:10;background:rgba(11,20,24,.88);backdr
 .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
 .brand{font-weight:700;letter-spacing:.2px;color:var(--ink);text-decoration:none}
 .brand .role{font-weight:400;color:var(--muted);font-size:.9rem;margin-left:10px}
-@media (max-width:760px){.brand .role{display:none}}
+@media (max-width:400px){.brand .role{display:none}}
+.menu-btn{display:none;width:44px;height:44px;padding:0;border:1px solid var(--line);border-radius:10px;background:transparent;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:5px}
+.menu-btn span{display:block;width:20px;height:2px;background:var(--ink);border-radius:2px;transition:transform .2s,opacity .2s}
+.menu-btn[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.menu-btn[aria-expanded="true"] span:nth-child(2){opacity:0}
+.menu-btn[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media (prefers-reduced-motion:reduce){.menu-btn span{transition:none}}
+@media (max-width:860px){
+  .js .menu-btn{display:flex}
+  .js .nav nav{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--bg2);border-bottom:1px solid var(--line);padding:8px 20px 14px;box-shadow:0 20px 30px rgba(0,0,0,.4)}
+  .js .nav nav.open{display:flex}
+  .js .nav nav a{margin:0;padding:14px 4px;font-size:1.05rem;border-bottom:1px solid var(--line);color:var(--ink)}
+  .js .nav nav a:last-child{border-bottom:0}
+}
 .nav nav a{color:var(--muted);text-decoration:none;margin-left:20px;font-size:.95rem}
 .nav nav a:hover{color:var(--ink)}
 .eyebrow{color:var(--ring);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
@@ -100,7 +114,7 @@ footer p{max-width:75ch}
   .steps,.stories{grid-template-columns:1fr 1fr}
   .nav nav a{margin-left:12px}
 }
-@media (max-width:540px){.steps,.stories,.gallery{grid-template-columns:1fr}.nav nav a.opt{display:none}}
+@media (max-width:540px){.steps,.stories,.gallery{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -108,15 +122,16 @@ footer p{max-width:75ch}
 <header class="nav">
   <div class="wrap">
     <a class="brand" href="#top">Emmanouela Marla <span class="role">Software Engineer</span></a>
-    <nav aria-label="Main">
+    <nav id="site-nav" aria-label="Main">
       <a href="#ar">The AR</a>
       <a href="#action">In action</a>
-      <a class="opt" href="#stories">Stories</a>
-      <a class="opt" href="#stack">Tech</a>
+      <a href="#stories">Stories</a>
+      <a href="#stack">Tech</a>
       <a href="#vr">VR</a>
-      <a class="opt" href="#past-ar">More AR</a>
+      <a href="#past-ar">More AR</a>
       <a href="#projects">Projects</a>
     </nav>
+    <button class="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
   </div>
 </header>
 
@@ -338,6 +353,20 @@ footer p{max-width:75ch}
     s.textContent=on?'Hotspot active: the clue appears 3 m in front of the camera.':'Keep walking.';
   }
   r.addEventListener('input',upd); upd();
+})();
+(function(){
+  var btn=document.querySelector('.menu-btn'), nav=document.getElementById('site-nav');
+  if(!btn||!nav) return;
+  function set(open){
+    nav.classList.toggle('open',open);
+    btn.setAttribute('aria-expanded',open?'true':'false');
+    btn.setAttribute('aria-label',open?'Close menu':'Open menu');
+  }
+  btn.addEventListener('click',function(e){e.stopPropagation();set(!nav.classList.contains('open'));});
+  nav.addEventListener('click',function(e){if(e.target.closest('a'))set(false);});
+  document.addEventListener('click',function(e){if(!nav.contains(e.target)&&e.target!==btn&&!btn.contains(e.target))set(false);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&nav.classList.contains('open')){set(false);btn.focus();}});
+  window.addEventListener('resize',function(){if(window.innerWidth>860)set(false);});
 })();
 </script>
 </body>
