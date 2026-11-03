@@ -41,7 +41,7 @@ p{margin:0 0 1em}
 .pulse.d2{animation-delay:1.06s}.pulse.d3{animation-delay:2.12s}
 @keyframes pulse{0%{transform:scale(.15);opacity:.9}100%{transform:scale(1);opacity:0}}
 @media (prefers-reduced-motion:reduce){.pulse{animation:none;opacity:.35;transform:scale(.7)}.pulse.d2{transform:scale(.5)}.pulse.d3{transform:scale(.3)}html{scroll-behavior:auto}}
-section{padding:64px 0;border-top:1px solid var(--line)}
+section{padding:64px 0;border-top:1px solid var(--line);scroll-margin-top:56px}
 section.alt{background:var(--bg2)}
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:28px;counter-reset:s}
 .step{background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:20px;counter-increment:s}
@@ -63,22 +63,34 @@ th{color:var(--muted);font-weight:600;width:36%}
 .vid{margin:0;width:min(280px,100%)}
 .vid video{width:100%;height:auto;aspect-ratio:320/672;display:block;border-radius:var(--radius);border:1px solid var(--line);background:#000}
 .vid figcaption{color:var(--muted);font-size:.92rem;margin-top:10px}
+.yt{margin:40px auto 0;width:min(720px,100%)}
+.yt-frame{position:relative;aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);background:#000}
+.yt-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt figcaption{color:var(--muted);font-size:.92rem;margin-top:10px}
+.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:28px 0}
+.gallery figure{margin:0}
+.gallery img{width:100%;height:auto;display:block;border-radius:var(--radius);border:1px solid var(--line);background:var(--bg2)}
+.gallery figcaption{color:var(--muted);font-size:.92rem;margin-top:8px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:16px}
+.list{margin:0;padding-left:20px;color:var(--muted)}
+.list li{margin-bottom:.6em}
 .stories{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
 .story{border:1px solid var(--line);border-radius:var(--radius);padding:20px;background:var(--bg2)}
 .story ol{margin:10px 0 0;padding-left:20px;color:var(--muted);font-size:.95rem}
-.projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:24px}
+.projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:16px;margin-top:24px}
 .proj{border:1px solid var(--line);border-radius:var(--radius);padding:24px;background:var(--bg2);display:flex;flex-direction:column}
 .proj.feature{border-color:#5a4a1e;background:linear-gradient(160deg,#17262c,#101e24)}
 .proj .meta{color:var(--muted);font-size:.88rem;margin-top:auto;padding-top:12px}
-.proj a.more{margin-top:12px;font-weight:600}
+.proj a.more{margin-top:12px;font-weight:600;overflow-wrap:anywhere}
+.proj{min-width:0}
 footer{padding:36px 0 56px;color:var(--muted);font-size:.9rem;border-top:1px solid var(--line)}
 footer p{max-width:75ch}
 @media (max-width:860px){
-  .hero .grid,.demo{grid-template-columns:1fr}
+  .hero .grid,.demo,.cols{grid-template-columns:1fr}
   .steps,.stories{grid-template-columns:1fr 1fr}
   .nav nav a{margin-left:12px}
 }
-@media (max-width:540px){.steps,.stories{grid-template-columns:1fr}.nav nav a.opt{display:none}}
+@media (max-width:540px){.steps,.stories,.gallery{grid-template-columns:1fr}.nav nav a.opt{display:none}}
 </style>
 </head>
 <body>
@@ -91,6 +103,7 @@ footer p{max-width:75ch}
       <a href="#action">In action</a>
       <a class="opt" href="#stories">Stories</a>
       <a class="opt" href="#stack">Tech</a>
+      <a href="#vr">VR</a>
       <a href="#projects">Projects</a>
     </nav>
   </div>
@@ -194,6 +207,12 @@ footer p{max-width:75ch}
         <figcaption>On the waterfront: an AR sailing ship appears over the harbour.</figcaption>
       </figure>
     </div>
+    <figure class="yt">
+      <div class="yt-frame">
+        <iframe src="https://www.youtube-nocookie.com/embed/YqaWAfebky4" title="Video on YouTube" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+      <figcaption>Also on YouTube: <a href="https://youtu.be/YqaWAfebky4" rel="noopener">watch on youtube.com</a>.</figcaption>
+    </figure>
   </div>
 </section>
 
@@ -231,6 +250,43 @@ footer p{max-width:75ch}
   </div>
 </section>
 
+<section id="vr">
+  <div class="wrap">
+    <div class="eyebrow">Virtual reality</div>
+    <h2>VR Hidden Object</h2>
+    <p class="lead">A first-person VR game for Google Cardboard-style headsets. The player looks around colourful 3D scenes to find hidden objects and match words to what they hear, practising English vocabulary along the way.</p>
+
+    <div class="gallery">
+      <figure><img src="vr-classroom.jpg" width="960" height="542" loading="lazy" alt="The classroom level: a blackboard lists the words Cat, iPod, Car, Book and Laptop, and the objects are hidden among the desks."><figcaption>Classroom: the blackboard lists the objects to find.</figcaption></figure>
+      <figure><img src="vr-beach.jpg" width="960" height="538" loading="lazy" alt="The beach level: a tugboat, umbrellas, surfboards, a bicycle, a beach ball and a lifebuoy on the sand."><figcaption>Beach: everyday objects and vehicles to spot.</figcaption></figure>
+      <figure><img src="vr-market.jpg" width="960" height="540" loading="lazy" alt="The flea market level: stalls with signs such as Bed and Salad, crates and fruit."><figcaption>Flea market: signs and stalls introduce new words.</figcaption></figure>
+      <figure><img src="vr-zoo.jpg" width="960" height="542" loading="lazy" alt="The zoo level: a low-poly park with trees, bridges, a river and a fountain."><figcaption>Zoo: a park to explore, with animals to find.</figcaption></figure>
+    </div>
+
+    <div class="cols">
+      <div>
+        <h3>How it plays</h3>
+        <ul class="list">
+          <li>Levels include a classroom, beach, flea market, zoo and castle, plus a show scene and a game-over screen.</li>
+          <li>Levels run against a countdown. Finding everything early earns a time bonus.</li>
+          <li>A hint button highlights an object that is still hidden, at a small cost in time. Repeated wrong clicks are penalised.</li>
+          <li>Vocabulary activities pair written words with spoken audio, such as a ten-word matching round and narrated animal phrases like “The tall giraffe”.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Technology</h3>
+        <table>
+          <tr><th>Engine</th><td>Unity 2019.4 (LTS), C#</td></tr>
+          <tr><th>VR</th><td>Google VR SDK with Unity XR Plugin Management, for Cardboard-style headsets</td></tr>
+          <tr><th>Input</th><td>Gaze reticle pointer; an outline highlight (QuickOutline) makes objects stand out</td></tr>
+          <tr><th>Platform</th><td>Android</td></tr>
+        </table>
+      </div>
+    </div>
+    <p class="small">3D models, audio and tools come partly from third-party packs, for example Unity Standard Assets, the Google VR SDK, QuickOutline and Runemark Studio’s Dark Fantasy Kit. They belong to their respective authors and are used under their own licences, not presented as original work.</p>
+  </div>
+</section>
+
 <section id="projects">
   <div class="wrap">
     <div class="eyebrow">Projects</div>
@@ -243,6 +299,13 @@ footer p{max-width:75ch}
         <p class="small">Developed by Bewitched Mitches, with academics and alumni of the Institute of Digital Games and the Department of English at the University of Malta. Released under GPL-3.0 or later.</p>
         <a class="more" href="https://github.com/emmanouela88/PlayingMalteseHistory" rel="noopener">github.com/emmanouela88/PlayingMalteseHistory →</a>
         <div class="meta">Unity · C# · AR Foundation · ARCore · ARKit</div>
+      </article>
+      <article class="proj">
+        <div class="eyebrow">VR</div>
+        <h3>VR Hidden Object</h3>
+        <p>A Unity VR hidden-object game for English vocabulary, played with a gaze pointer in Cardboard-style headsets.</p>
+        <a class="more" href="#vr">See the VR project ↑</a>
+        <div class="meta">Unity · C# · Google VR · Android</div>
       </article>
     </div>
   </div>
